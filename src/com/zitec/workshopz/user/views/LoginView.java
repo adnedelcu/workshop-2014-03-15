@@ -1,7 +1,7 @@
 package com.zitec.workshopz.user.views;
 
 
-import android.util.Log;
+import android.app.FragmentManager;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,11 +17,12 @@ import com.zitec.workshopz.user.activities.LoginActivity;
 
 public class LoginView extends BaseView {
 
-	protected LoginActivity act;
+	LoginActivity act;
 	EditText username;
 	EditText password;
 	Button submit;
 	SparseArray<String> errors;
+	FragmentManager manager;
 
 	
 	public LoginView(LoginActivity act){

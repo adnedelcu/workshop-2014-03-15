@@ -1,10 +1,16 @@
 package com.zitec.workshopz.user.activities;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.SparseArray;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.zitec.workshopz.R;
 import com.zitec.workshopz.base.BaseActivity;
@@ -17,10 +23,12 @@ import com.zitec.workshopz.user.storage.adapters.UserDbAdapter;
 import com.zitec.workshopz.user.storage.adapters.UserWSAdapter;
 import com.zitec.workshopz.user.storage.mappers.UserMapper;
 import com.zitec.workshopz.user.views.LoginView;
+import com.zitec.workshopz.user.views.RegisterDialog;
 
 public class LoginActivity extends BaseActivity {
 	LoginView view;
 	SparseArray<String> errors;
+	private RegisterDialog registerDialog;
 	
 	@Override
 	public void onCreate(Bundle args0){
@@ -29,6 +37,29 @@ public class LoginActivity extends BaseActivity {
 		this.view.initView();
 		this.view.setActions();
 		this.errors = new SparseArray<String>();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.login_screen, menu);
+		
+		return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		DialogFragment prev = (DialogFragment) getSupportFragmentManager().findFragmentByTag("register_dialog");
+		if (prev != null) {
+			ft.remove(prev);
+		}
+		ft.addToBackStack(null);
+		
+		this.registerDialog = new RegisterDialog();
+		this.registerDialog.show(ft, "register_dialog");
+		
+		return true;
+//		return super.onOptionsItemSelected(item);
 	}
 	
 	public boolean validateLogin(SparseArray<String> values){
@@ -65,7 +96,11 @@ public class LoginActivity extends BaseActivity {
 				}
 				User usr = (User) obj.get(0);
 				BaseActivity.identity = usr;
-				mapper.setAdapter(new UserDbAdapter(LoginActivity.this));
+				try {
+					mapper.setAdapter(new UserDbAdapter(LoginActivity.this));
+				} catch (NameNotFoundException e) {
+					e.printStackTrace();
+				}
 				usr.setCurrentIdentity("true");
 				mapper.save(usr);
 				LoginActivity.this.loadWorkshops();
@@ -79,15 +114,5 @@ public class LoginActivity extends BaseActivity {
 			}
 		});
 		mapper.getEntity(username, password);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 }

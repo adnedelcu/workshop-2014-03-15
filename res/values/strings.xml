@@ -7,13 +7,24 @@
     <string name="username_label">Username</string>
     <string name="password_label">Password</string>
     <string name="login_submit_label">Login</string>
+    <string name="register_button_label">Registe</string>
     <string name="empty_username_error">Username cannot be empty</string>
+    <string name="empty_password_error">Password cannot be empty</string>
+    <string name="empty_name_error">Name cannot be empty</string>
+    <string name="empty_email_error">Email cannot be empty</string>
+    <string name="empty_phone_error">Phone cannot be empty</string>
+    <string name="empty_position_error">Position cannot be empty</string>
     <string name="empty_password_error">Password cannot be empty</string>
     <string name="network_error">Network error</string>
         <string name="date_label">Date: </string>
     <string name="speakers_label">Speakers: </string>
     <string name="syncdb_service_name">workshopz syncronizer</string>
-    
+    <string name="register_name_label">Your name</string>
+    <string name="register_email_label">Your email</string>
+    <string name="register_phone_label">Your phone</string>
+    <string name="register_position_label">Your position</string>
+    <string name="register_password_label">Your password</string>
+    <string name="not_registered_label">Not registered?</string>
     
     
     <string name="ws_base_url">http://workshopz.apache.dev54.zitec.ro</string>
